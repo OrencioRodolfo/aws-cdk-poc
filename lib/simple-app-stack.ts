@@ -4,13 +4,8 @@ import * as s3 from "@aws-cdk/aws-s3";
 import * as lambdaNodejs from "@aws-cdk/aws-lambda-nodejs";
 import * as lambda from "@aws-cdk/aws-lambda";
 import { BucketDeployment, Source } from "@aws-cdk/aws-s3-deployment";
-import { Policy, PolicyStatement } from "@aws-cdk/aws-iam";
-import {
-  HttpApi,
-  HttpIntegration,
-  HttpMethod,
-  CorsHttpMethod,
-} from "@aws-cdk/aws-apigatewayv2";
+import { PolicyStatement } from "@aws-cdk/aws-iam";
+import { HttpApi, HttpMethod, CorsHttpMethod } from "@aws-cdk/aws-apigatewayv2";
 import { LambdaProxyIntegration } from "@aws-cdk/aws-apigatewayv2-integrations";
 
 export class SimpleAppStack extends cdk.Stack {
@@ -93,18 +88,19 @@ export class SimpleAppStack extends cdk.Stack {
     /** *******************************
      *      S3 website bucket     *
      **********************************/
-    // const websiteBucket = new s3.Bucket(
-    //   this,
-    //   "MySimpleAppWebsiteS3BucketName",
-    //   {
-    //     websiteIndexDocument: "index.html",
-    //     publicReadAccess: true,
-    //   }
-    // );
+    // const websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
+    //   websiteIndexDocument: "index.html",
+    //   publicReadAccess: true,
+    // });
 
-    // new BucketDeployment(this, "MySimpleAppWebsite", {
-    //   sources: [Source.asset(path.join(__dirname, "..", "frontend", "build"))],
-    //   destinationBucket: bucket,
+    // new BucketDeployment(this, "DeployWebsite", {
+    //   sources: [Source.asset("./frontend/build/")],
+    //   destinationBucket: websiteBucket,
+    // });
+
+    // new cdk.CfnOutput(this, "DeployWebsiteBucketNameExport", {
+    //   value: websiteBucket.bucketName,
+    //   exportName: "MySimpleAppWebsiteS3BucketName",
     // });
   }
 }
